@@ -1,62 +1,59 @@
-myprog : ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memchr.o ft_memcmp.o ft_memcpy.o ft_memmove.o ft_memset.o ft_strchr.o ft_strdup.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o
-	cc -Wall -Wextra -Werror ft_bzero.o ft_calloc.o ft_isalnum.o ft_isalpha.o ft_isascii.o ft_isdigit.o ft_isprint.o ft_memcmp.o ft_memmove.o ft_memset.o ft_strchr.o ft_strdup.o ft_strlcpy.o ft_strlen.o ft_strnstr.o ft_strrchr.o ft_tolower.o ft_toupper.o -o myprog
+all: libft.a
 
-ft_bzero.o : ft_bzero.c libft.h
-	cc -c ft_bzero.c
+NAME = libft.a
 
-ft_calloc.o : ft_calloc.c libft.h
-	cc -c ft_calloc.c
+HEADERS = libft.h
+SRCS =  ft_isdigit.c\
+		ft_isalnum.c\
+		ft_isalpha.c\
+		ft_isascii.c\
+		ft_isprint.c\
+		ft_strlen.c\
+		ft_memset.c\
+		ft_bzero.c\
+		ft_memcpy.c\
+		ft_memmove.c\
+		ft_strlcpy.c\
+		ft_strlcat.c\
+		ft_toupper.c\
+		ft_tolower.c\
+		ft_strchr.c\
+		ft_strncmp.c\
+		ft_memchr.c\
+		ft_memcmp.c\
+		ft_strnstr.c\
+		ft_atoi.c\
+		ft_calloc.c\
+		ft_strdup.c\
+		ft_substr.c\
+		ft_strjoin.c\
+		ft_strtrim.c\
+		ft_putchar_fd.c\
+		ft_putstr_fd.c\
+		ft_putendl_fd.c\
+		ft_putnbr_fd.c\
+		ft_itoa.c\
+		ft_strrchr.c\
+		ft_strmapi.c\
+		ft_striteri.c\
+		ft_split.c
+OBJS = $(SRCS:.c=.o)
 
-ft_isalnum.o : ft_isalnum.c libft.h
-	cc -c ft_isalnum.c
+libft.a: $(OBJS)
+	ar rcs $@ $^
 
-ft_isalpha.o : ft_isalpha.c libft.h
-	cc -c ft_isalpha.c
+%.o: %.c $(HEADERS)
+	gcc -c -Wextra -Werror -Wall -I. $< -o $@
 
-ft_isascii.o : ft_isascii.c libft.h
-	cc -c ft_isascii.c
+clean:
+	rm -f $(OBJS)
 
-ft_isdigit.o : ft_isdigit.c libft.h
-	cc -c ft_isdigit.c
+fclean: clean
+	rm -f $(NAME)
 
-ft_isprint.o : ft_isprint.c libft.h
-	cc -c ft_isprint.c
+re: fclean all
 
-ft_memchr.o : ft_memchr.c libft.h
-	cc -c ft_memchr.c
+.PHONY: all clean fclean re
 
-ft_memcmp.o : ft_memcmp.c libft.h
-	cc -c ft_memcmp.c
-
-ft_memcpy.o : ft_memcpy.c libft.h
-	cc -c ft_memcpy.c
-
-ft_memmove.o : ft_memmove.c libft.h
-	cc -c ft_memmove.c
-
-ft_memset.o : ft_memset.c libft.h
-	cc -c ft_memset.c
-
-ft_strchr.o : ft_strchr.c libft.h
-	cc -c ft_strchr.c
-
-ft_strdup.o : ft_strdup.c libft.h
-	cc -c ft_strdup.c
-
-ft_strlcpy.o : ft_strlcpy.c libft.h
-	cc -c ft_strlcpy.c
-
-ft_strlen.o : ft_strlen.c libft.h
-	cc -c ft_strlen.c
-
-ft_strnstr.o : ft_strnstr.c libft.h
-	cc -c ft_strnstr.c
-
-ft_strrchr.o : ft_strrchr.c libft.h
-	cc -c ft_strrchr.c
-
-ft_tolower.o : ft_tolower.c libft.h
-	cc -c ft_tolower.c
-
-ft_toupper.o : ft_toupper.c libft.h
-	cc -c ft_toupper.c
+print-%:
+	@echo "$* = $($*)"

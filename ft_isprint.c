@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gfiguero <gfiguero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/10 16:21:11 by marvin            #+#    #+#             */
-/*   Updated: 2026/11/10 16:21:11 by marvin           ###   ########.fr       */
+/*   Updated: 2026/11/14 17:40:28 by gfiguero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_isprint(int c)
+int	ft_isprint(int c)
 {
-    int is;
+	int	is;
 
-    is = 0;
-    if (c >= ' ' && c <= '~')
-        is = 1;
-    return (is);
+	is = 0;
+	if (c >= ' ' && c <= '~')
+		is = 1;
+	return (is);
 }
