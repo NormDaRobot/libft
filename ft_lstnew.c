@@ -15,15 +15,11 @@
 t_list	*ft_lstnew(void *content)
 {
 	t_list			*list;
-	unsigned char	*str;
-	size_t			size;
 
-	str = content;
-	size = ft_strlen(str);
-	list = malloc(sizeof(unsigned char) * (size + 1) + (sizeof(size_t)));
+	list = (t_list *)malloc(sizeof(t_list));
 	if (!list)
 		return (NULL);
-	list->content = str;
+	list->content = content;
 	list->next = NULL;
 	return (list);
 }

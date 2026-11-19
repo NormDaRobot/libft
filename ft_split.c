@@ -17,17 +17,17 @@ static int	ft_countwords(char const *s, char c)
 	int	i;
 	int	words;
 
+	if (!s)
+		return (0);
 	words = 0;
 	i = 0;
-	if (s[0] != c && s[1] == c)
-	{
-		words++;
-		i++;
-	}
 	while (s[i])
 	{
-		if (s[i] == c && s[i + 1] != c)
-			words++;
+		if (s[i] != c)
+		{
+			if (i == 0 || s[i - 1] == c)
+				words++;
+		}
 		i++;
 	}
 	return (words);
@@ -42,18 +42,21 @@ static int	ft_word_len(const char *s, const char c, int pos)
 	this_pos = 0;
 	i = 0;
 	word_len = 0;
-	if (s[0] != '\0')
-	{
-		this_pos++;
+	
+	while (s[i] && (s[i] == c)) /*skip initials c*/
 		i++;
-	}
-	while (s[i] && (this_pos < pos))
+	while (s[i] && this_pos < pos) /*go to the word*/
 	{
-		if (s[i] == c && s[i + 1] != c)
+		if (s[i] == c) /*if in a c, last word end*/
+		{
 			this_pos++;
-		i++;
+			while (s[i] && (s[i] == c)) /*skip inner c*/
+				i++;
+		}
+		else
+			i++;
 	}
-	while (s[i] && (s[i] != c))
+	while (s[i] && (s[i] != c)) /*count len*/
 	{
 		word_len++;
 		i++;
@@ -79,21 +82,21 @@ static char	**ft_create_str(char const *s, char c)
 	int		i;
 
 	words = ft_countwords(s, c);
-	str = malloc(sizeof(char *) * words + 1);
+	str = malloc(sizeof(char *) * (words + 1));
 	if (!str)
 		return (NULL);
-	str[words + 1] = NULL;
+	str[words] = NULL;
 	i = 0;
 	while (i < words)
 	{
 		word_len = ft_word_len(s, c, i);
-		str[i] = malloc(sizeof(char) * word_len + 1);
+		str[i] = malloc(sizeof(char) * (word_len + 1));
 		if (!str[i])
 		{
 			ft_delete_all(str, i);
 			return (NULL);
 		}
-		str[i][word_len + 1] = 0;
+		str[i][word_len] = 0;
 		i++;
 	}
 	return (str);
@@ -127,3 +130,73 @@ char	**ft_split(char const *s, char c)
 	}
 	return (str);
 }
+
+/*int	main(void)
+{
+	char	**result;
+	int		i;
+
+	// Caso de prueba 1: Frase normal con espacios
+	char const *str1 = "  Hola  mundo  esto  es  Libft  ";
+	char		c1 = ' ';
+
+	printf("--- PRUEBA 1: \"%s\" (delimitador: '%c') ---\n", str1, c1);
+	result = ft_split(str1, c1);
+	if (!result)
+	{
+		printf("¡Error: ft_split devolvió NULL!\n");
+		return (1);
+	}
+
+	i = 0;
+	while (result[i])
+	{
+		printf("result[%d] = \"%s\"\n", i, result[i]);
+		free(result[i]); // Liberamos la memoria de cada palabra
+		i++;
+	}
+	free(result); // Liberamos el array principal de punteros
+	printf("\n");
+
+	// Caso de prueba 2: Delimitador personalizado (ej. coma)
+	char const *str2 = ",,,manzana,,pera,banana,,,";
+	char		c2 = ',';
+
+	printf("--- PRUEBA 2: \"%s\" (delimitador: '%c') ---\n", str2, c2);
+	result = ft_split(str2, c2);
+	if (!result)
+	{
+		printf("¡Error: ft_split devolvió NULL!\n");
+		return (1);
+	}
+
+	i = 0;
+	while (result[i])
+	{
+		printf("result[%d] = \"%s\"\n", i, result[i]);
+		free(result[i]);
+		i++;
+	}
+	free(result);
+	printf("\n");
+
+	// Caso de prueba 3: Cadena vacía o solo delimitadores
+	char const *str3 = "      ";
+	char		c3 = ' ';
+
+	printf("--- PRUEBA 3: Cadena solo de espacios ---\n");
+	result = ft_split(str3, c3);
+	if (result && result[0] == NULL)
+		printf("¡Perfecto! Devuelve un array vacío (solo con NULL).\n");
+
+	i = 0;
+	while (result && result[i])
+	{
+		free(result[i]);
+		i++;
+	}
+	if (result)
+		free(result);
+
+	return (0);
+}*/
