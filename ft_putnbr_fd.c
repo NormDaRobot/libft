@@ -6,7 +6,7 @@
 /*   By: gfiguero <gfiguero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/13 21:22:44 by gfiguero          #+#    #+#             */
-/*   Updated: 2026/11/14 17:28:08 by gfiguero         ###   ########.fr       */
+/*   Updated: 2026/11/19 17:45:29 by gfiguero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char		c;
 	int long	num;
 
 	num = n;

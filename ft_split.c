@@ -6,16 +6,16 @@
 /*   By: gfiguero <gfiguero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 17:13:24 by gfiguero          #+#    #+#             */
-/*   Updated: 2026/11/17 16:42:23 by gfiguero         ###   ########.fr       */
+/*   Updated: 2026/11/19 19:08:25 by gfiguero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_countwords(char const *s, char c)
+static size_t	ft_countwords(char const *s, char c)
 {
-	int	i;
-	int	words;
+	size_t	i;
+	size_t	words;
 
 	if (!s)
 		return (0);
@@ -33,16 +33,15 @@ static int	ft_countwords(char const *s, char c)
 	return (words);
 }
 
-static int	ft_word_len(const char *s, const char c, int pos)
+static size_t	ft_word_len(const char *s, const char c, size_t pos)
 {
-	int	word_len;
-	int	this_pos;
-	int	i;
+	size_t	word_len;
+	size_t	this_pos;
+	size_t	i;
 
 	this_pos = 0;
 	i = 0;
 	word_len = 0;
-	
 	while (s[i] && (s[i] == c)) /*skip initials c*/
 		i++;
 	while (s[i] && this_pos < pos) /*go to the word*/
@@ -64,7 +63,7 @@ static int	ft_word_len(const char *s, const char c, int pos)
 	return (word_len);
 }
 
-static void	ft_delete_all(char **str, int i)
+static void	ft_delete_all(char **str, size_t i)
 {
 	while (i > 0)
 	{
@@ -87,6 +86,7 @@ static char	**ft_create_str(char const *s, char c)
 		return (NULL);
 	str[words] = NULL;
 	i = 0;
+	word_len = 0;
 	while (i < words)
 	{
 		word_len = ft_word_len(s, c, i);
@@ -105,98 +105,40 @@ static char	**ft_create_str(char const *s, char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**str;
-	int		i;
-	int		j;
-	int		k;
+	size_t	i;
+	size_t	j;
+	size_t	k;
+	size_t	word_len;
 
 	str = ft_create_str(s, c);
 	if (!str)
 		return (NULL);
 	i = 0;
 	k = 0;
-	while (str[i])
+	j = 0;
+	while (i < ft_countwords(s, c))
 	{
+		while (s[k] && s[k] == c)
+			k++;
+		word_len = ft_word_len(s, c, i);
 		j = 0;
-		while (str[i][j])
+		while (j < word_len)
 		{
-			if (s[k] != c)
-			{
-				str[i][j] = s[k];
-				j++;
-			}
+			str[i][j] = s[k];
+			j++;
 			k++;
 		}
+		str[i][j] = '\0';
 		i++;
 	}
 	return (str);
 }
-
-/*int	main(void)
+/*
+int	main(void)
 {
-	char	**result;
-	int		i;
-
-	// Caso de prueba 1: Frase normal con espacios
-	char const *str1 = "  Hola  mundo  esto  es  Libft  ";
-	char		c1 = ' ';
-
-	printf("--- PRUEBA 1: \"%s\" (delimitador: '%c') ---\n", str1, c1);
-	result = ft_split(str1, c1);
-	if (!result)
-	{
-		printf("¡Error: ft_split devolvió NULL!\n");
-		return (1);
-	}
-
-	i = 0;
-	while (result[i])
-	{
-		printf("result[%d] = \"%s\"\n", i, result[i]);
-		free(result[i]); // Liberamos la memoria de cada palabra
-		i++;
-	}
-	free(result); // Liberamos el array principal de punteros
-	printf("\n");
-
-	// Caso de prueba 2: Delimitador personalizado (ej. coma)
-	char const *str2 = ",,,manzana,,pera,banana,,,";
-	char		c2 = ',';
-
-	printf("--- PRUEBA 2: \"%s\" (delimitador: '%c') ---\n", str2, c2);
-	result = ft_split(str2, c2);
-	if (!result)
-	{
-		printf("¡Error: ft_split devolvió NULL!\n");
-		return (1);
-	}
-
-	i = 0;
-	while (result[i])
-	{
-		printf("result[%d] = \"%s\"\n", i, result[i]);
-		free(result[i]);
-		i++;
-	}
-	free(result);
-	printf("\n");
-
-	// Caso de prueba 3: Cadena vacía o solo delimitadores
-	char const *str3 = "      ";
-	char		c3 = ' ';
-
-	printf("--- PRUEBA 3: Cadena solo de espacios ---\n");
-	result = ft_split(str3, c3);
-	if (result && result[0] == NULL)
-		printf("¡Perfecto! Devuelve un array vacío (solo con NULL).\n");
-
-	i = 0;
-	while (result && result[i])
-	{
-		free(result[i]);
-		i++;
-	}
-	if (result)
-		free(result);
-
+	char **result = ft_split("  Hola     que tal", ' ');
+	ft_putstr_fd(result[0], 1);
+	ft_putstr_fd(result[1], 1);
+	ft_putstr_fd(result[2], 1);
 	return (0);
 }*/
