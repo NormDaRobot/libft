@@ -14,9 +14,11 @@
 
 static size_t	int_size(int n)
 {
-	if (n / 10 > 0)
+	if (n < 0)
+		return (1 + int_size(-n));
+	if (n >= 10)
 		return (1 + int_size(n / 10));
-	return (0);
+	return (1);
 }
 
 char	*ft_itoa(int n)
@@ -27,19 +29,25 @@ char	*ft_itoa(int n)
 
 	num = n;
 	size = int_size(n);
-	if (num < 0)
-		size++;
-	str = calloc(sizeof(char), (size + 1));
+	str = malloc(sizeof(char) * (size + 1));
 	if (!str)
 		return (NULL);
 	str[size] = 0;
 	if (num < 0)
-		str[0] = '-';
-	while (num / 10 > 0)
 	{
-		str[size] = (num % 10) + 0;
-		num /= 10;
+		str[0] = '-';
+		num = -num;
+	}
+	if (num == 0)
+	{
+		str[0] = '0';
+		return (str);
+	}
+	while (num > 0)
+	{
 		size--;
+		str[size] = (num % 10) + '0';
+		num /= 10;
 	}
 	return (str);
 }
