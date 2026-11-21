@@ -1,6 +1,6 @@
 *This proyect has been created like part of 42 curriculum by gfiguero.*
 
-# Instructions:
+# Description:
 Library for manipulation of string (char *) and other kinds of pointer lists and use of linked list of structures.
 
 # Instructions:
