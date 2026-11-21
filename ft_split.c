@@ -6,7 +6,7 @@
 /*   By: gfiguero <gfiguero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 17:13:24 by gfiguero          #+#    #+#             */
-/*   Updated: 2026/11/19 19:08:25 by gfiguero         ###   ########.fr       */
+/*   Updated: 2026/11/21 16:23:33 by gfiguero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,24 @@ static size_t	ft_countwords(char const *s, char c)
 static size_t	ft_word_len(const char *s, const char c, size_t pos)
 {
 	size_t	word_len;
-	size_t	this_pos;
 	size_t	i;
 
-	this_pos = 0;
 	i = 0;
 	word_len = 0;
-	while (s[i] && (s[i] == c)) /*skip initials c*/
+	while (s[i] && (s[i] == c))
 		i++;
-	while (s[i] && this_pos < pos) /*go to the word*/
+	while (s[i] && 0 < pos)
 	{
-		if (s[i] == c) /*if in a c, last word end*/
+		if (s[i] == c)
 		{
-			this_pos++;
-			while (s[i] && (s[i] == c)) /*skip inner c*/
+			pos--;
+			while (s[i] && (s[i] == c))
 				i++;
 		}
 		else
 			i++;
 	}
-	while (s[i] && (s[i] != c)) /*count len*/
+	while (s[i] && (s[i] != c))
 	{
 		word_len++;
 		i++;
@@ -108,8 +106,9 @@ char	**ft_split(char const *s, char c)
 	size_t	i;
 	size_t	j;
 	size_t	k;
-	size_t	word_len;
 
+	if (!s)
+		return (NULL);
 	str = ft_create_str(s, c);
 	if (!str)
 		return (NULL);
@@ -120,14 +119,9 @@ char	**ft_split(char const *s, char c)
 	{
 		while (s[k] && s[k] == c)
 			k++;
-		word_len = ft_word_len(s, c, i);
 		j = 0;
-		while (j < word_len)
-		{
-			str[i][j] = s[k];
-			j++;
-			k++;
-		}
+		while (j < ft_word_len(s, c, i))
+			str[i][j++] = s[k++];
 		str[i][j] = '\0';
 		i++;
 	}

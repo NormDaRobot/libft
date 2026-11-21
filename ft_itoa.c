@@ -6,13 +6,13 @@
 /*   By: gfiguero <gfiguero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/13 18:54:10 by gfiguero          #+#    #+#             */
-/*   Updated: 2026/11/19 20:14:27 by gfiguero         ###   ########.fr       */
+/*   Updated: 2026/11/21 15:40:39 by gfiguero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	int_size(int n)
+static size_t	int_size(long n)
 {
 	if (n < 0)
 		return (1 + int_size(-n));
@@ -23,9 +23,9 @@ static size_t	int_size(int n)
 
 char	*ft_itoa(int n)
 {
-	char		*str;
-	size_t		size;
-	int long	num;
+	char	*str;
+	size_t	size;
+	long	num;
 
 	num = n;
 	size = int_size(n);
@@ -39,14 +39,10 @@ char	*ft_itoa(int n)
 		num = -num;
 	}
 	if (num == 0)
-	{
 		str[0] = '0';
-		return (str);
-	}
 	while (num > 0)
 	{
-		size--;
-		str[size] = (num % 10) + '0';
+		str[--size] = (num % 10) + '0';
 		num /= 10;
 	}
 	return (str);
@@ -54,11 +50,11 @@ char	*ft_itoa(int n)
 /*
 #include <stdio.h>
 
-int main()
+int	main(void)
 {
 	int numero = 123;
 	char *palabra = ft_itoa(numero);
 	printf("%s", palabra);
 	free(palabra);
-	return 0;
+	return (0);
 }*/

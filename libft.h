@@ -6,15 +6,15 @@
 /*   By: gfiguero <gfiguero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/14 17:49:47 by gfiguero          #+#    #+#             */
-/*   Updated: 2026/11/16 21:18:39 by gfiguero         ###   ########.fr       */
+/*   Updated: 2026/11/21 16:26:32 by gfiguero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-#include <stdlib.h>
-#include <unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_list
 {
@@ -65,7 +65,7 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
 
-int 				ft_atoi(const char *nptr);
+int					ft_atoi(const char *nptr);
 
 void				*ft_calloc(size_t nmemb, size_t size);
 

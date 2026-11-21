@@ -6,17 +6,17 @@
 /*   By: gfiguero <gfiguero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/13 21:54:28 by gfiguero          #+#    #+#             */
-/*   Updated: 2026/11/16 20:38:19 by gfiguero         ###   ########.fr       */
+/*   Updated: 2026/11/21 15:58:20 by gfiguero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*Adds the node ’new’ at the beginning of the list*//*new->next = &lst[0];*/
+/*Adds the node ’new’ at the beginning of the list*/ /*new->next = &lst[0];*/
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-    if (!lst || !new)
-        return ;
-    new->next = *lst;
-    *lst = new;
+	if (!lst || !new)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }

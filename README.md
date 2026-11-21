@@ -1,5 +1,4 @@
-#LIBFT
-This proyect has been created like part of 42 curriculum by gfiguero.
+*This proyect has been created like part of 42 curriculum by gfiguero.*
 
 #DESCRIPTION:
 Library for manipulation of string (char *) and other kinds of pointer lists and use of linked list of structures.
